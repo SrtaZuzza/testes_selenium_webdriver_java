@@ -4,78 +4,65 @@ import org.openqa.selenium.By;
 
 public class RegisterPage extends BasePage {
 	//Locators
-	private By emailAddressLocator = By.id("email_create");
-	private By submitBtnLocator = By.id("SubmitCreate");
-	private By emailLocator = By.id("email");
-	private By alertAdditionalInformationLocator = By.xpath("/html/body/div[1]/div[2]/div/div[3]/div/div/form/div[2]/p[11]");
-	private By firstNameLocator = By.id("firstname");
-	private By lastNameLocator = By.id("lastname");
+	private By btnContinueRegister = By.cssSelector("#accountFrm > fieldset > button");
+	private By alertAdditionalInformationLocator = By.xpath("//*[@id=\"AccountFrm\"]/div[5]/div");
 	//Locators YOUR PERSONAL INFORMATION
-	private By genderFemaleLocator = By.id("id_gender2");
-	private By customerFirstNameLocator = By.id("customer_firstname");
-	private By customerLastNameLocator = By.id("customer_lastname");
-	private By passwordLocator = By.id("passwd");
-	private By daysLocator = By.id("days");
-	private By monthsLocator = By.id("months");
-	private By yearsLocator = By.id("years");
-	private By newsletterLocator = By.id("newsletter"); 
-	private By receiveOffersLocator = By.id("uniform-optin");
+	private By firstNameLocator = By.name("firstname");
+	private By lastNameLocator = By.name("lastname");
+	private By emailLocator = By.name("email");
+	private By phoneLocator = By.name("telephone");
+	private By faxLocator = By.name("fax");
 	//Locators YOUR ADDRESS
-	private By companyLocator = By.id("company");
-	private By address1Locator = By.id("address1");
-	private By address2Locator = By.id("address2");
-	private By cityLocator = By.id("city");
-	private By stateLocator = By.id("id_state");
-	private By postCodeLocator = By.id("postcode");
-	private By countryLocator = By.id("id_country");
-	private By additionalInformationLocator = By.name("other");
-	private By homePhoneLocator = By.id("phone");
-	private By mobilePhoneLocator = By.id("phone_mobile");
-	private By futureAddressLocator = By.id("alias");
-	private By registerBtnLocator = By.id("submitAccount");
-	private By welcomeMessageLocator = By.cssSelector("#center_column > p"); 
+	private By companyLocator = By.name("company");
+	private By address1Locator = By.name("address_1");
+	private By address2Locator = By.name("address_2");
+	private By cityLocator = By.name("city");
+	private By stateLocator = By.name("zone_id");
+	private By postCodeLocator = By.name("postcode");
+	private By countryLocator = By.name("country_id");
+	//Locators LOGIN DETAILS
+	private By loginNameLocator = By.name("loginname");
+	private By passwordLocator = By.name("password");
+	private By passwordConfirmLocator = By.name("confirm");
+	//Locators NEWSLETTER
+	private By newsletterLocator = By.id("AccountFrm_newsletter0");
+	private By privacyPolicyLocator = By.id("AccountFrm_agree");
+	//Locators SUBMIT
+	private By registerBtnLocator = By.cssSelector("#AccountFrm > div.form-group > div > div > button");
+	private By welcomeMessageLocator = By.className("maintext");
+	private By alertErrorLocator = By.cssSelector("#maincontainer > div > div > div > div.alert.alert-error.alert-danger");
 	
 	
-	public void insertEmailToRegister() {
-		if(super.isDisplayed(emailAddressLocator)) {
-			type("camila002@email.com", emailAddressLocator);
-			click(submitBtnLocator);
+	public void clickContinueToRegister() {
+		if(super.isDisplayed(btnContinueRegister)) {
+			click(btnContinueRegister);
 		} else {
 			System.out.println("email textbox was not present");
 		}
 	}
 	
-	public String getEmailNewAccount() {
-		super.waitVisibilityOfElementLocated(alertAdditionalInformationLocator);
-		return super.getTextByAttribute(this.emailLocator, "value");
-	}
-	
 	public void fillOutForm() {
-		this.insertEmailToRegister();
-		super.waitVisibilityOfElementLocated(additionalInformationLocator);
-		if(super.isDisplayed(genderFemaleLocator)) {
-			super.click(genderFemaleLocator);
-			super.type("Camila", customerFirstNameLocator);
-			super.type("Cavalcante", customerLastNameLocator);
-			super.type("1234@", passwordLocator);
-			super.selectByValue(daysLocator, "13");
-			super.selectByValue(monthsLocator, "1");
-			super.selectByValue(yearsLocator, "1994");
-			super.click(newsletterLocator);
-			super.click(receiveOffersLocator);
+		this.clickContinueToRegister();
+		super.waitVisibilityOfElementLocated(alertAdditionalInformationLocator);
+		if(super.isDisplayed(firstNameLocator)) {
+			super.type("Camila", firstNameLocator);
+			super.type("Cavalcante", lastNameLocator);
+			super.type("camila@tester.com", emailLocator);
+			super.type("99999999", phoneLocator);
+			super.type("99999999", faxLocator);
 			super.type("DIO", companyLocator);
 			super.type("Street Name, 123", address1Locator);
 			super.type("xxxxx", address2Locator);
 			super.type("Recife", cityLocator);
-			super.selectByValue(stateLocator, "32");			
-			super.selectByValue(countryLocator, "21");			
+			super.selectByValue(countryLocator, "30");
 			super.type("12345", postCodeLocator);
-			super.type("Additionl Information Test", additionalInformationLocator);
-			super.type("99999999", homePhoneLocator);
-			super.type("99999999", mobilePhoneLocator);
-			super.clear(futureAddressLocator);
-			String addressLocatorFuture = getTextByAttribute(address1Locator, "value");
-			super.type(addressLocatorFuture, futureAddressLocator);
+			super.type("camilaTester", loginNameLocator);
+			super.type("1234@", passwordLocator);
+			super.type("1234@", passwordConfirmLocator);
+			super.selectByValue(stateLocator, "456");
+			super.click(newsletterLocator);
+			super.click(privacyPolicyLocator);
+
 			super.click(registerBtnLocator);
 		} else {
 			System.out.println("message was not found.");
@@ -86,4 +73,9 @@ public class RegisterPage extends BasePage {
 		super.waitVisibilityOfElementLocated(welcomeMessageLocator);
 		return super.getText(welcomeMessageLocator);
 	}
+	public String getAlertError() {
+		super.waitVisibilityOfElementLocated(alertErrorLocator);
+		return super.getText(alertErrorLocator);
+	}
+
 }

@@ -13,20 +13,19 @@ public class AppTest {
 	@Test
     public void helloSelenium() {
 		//https://www.selenium.dev/documentation/webdriver/getting_started/install_drivers/
-		System.setProperty("webdriver.chrome.driver","drivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get("http://automationpractice.com/index.php");
+		driver.get("https://automationteststore.com/");
 		
 		String currentUrl = driver.getCurrentUrl();
-		String expected = "http://automationpractice.com/index.php";
+		String expected = "https://automationteststore.com/";
 		
 		Assertions.assertEquals(expected, currentUrl);
 		
 		driver.quit();
     }
-	
-	
+
     @Test
     public void shouldAnswerWithTrue() {
         assertTrue(true);

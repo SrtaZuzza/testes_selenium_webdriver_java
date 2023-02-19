@@ -9,7 +9,8 @@ import dev.camila.automation.pratice.selenium.pages.RegisterPage;
 
 class RegisterPageTest {
 	private RegisterPage registerPage;
-	private final String URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+	private final String URL = "https://automationteststore.com/index.php?rt=account/login";
+	private final String CREATE_URL = "https://automationteststore.com/index.php?rt=account/create";
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -25,26 +26,37 @@ class RegisterPageTest {
 	@Test
 	void test() {
 		//when
-		this.registerPage.insertEmailToRegister();
+		this.registerPage.clickContinueToRegister();
 		
 		//then
-		String expected = "camila002@email.com";
-		String actual = this.registerPage.getEmailNewAccount();
-		Assertions.assertEquals(expected, actual);
+		Assertions.assertNotEquals(this.URL, registerPage.getCurrentUrl());
 	}
 	
 	@Test
-	void test2() {
+	void registerNewUser() {
 		//when
 		this.registerPage.fillOutForm();
 		
 		//then
-		String expected = "Welcome to your account. Here you can manage all of your personal information and orders.";
+		String expected = "Your Account Has Been Created!".toUpperCase();
 		String actual = this.registerPage.getWelcomeMessage();
 		Assertions.assertEquals(expected, actual);
 		
 		String actualUrl = this.registerPage.getCurrentUrl();
-		Assertions.assertFalse(this.URL.equals(actualUrl));
+		Assertions.assertNotEquals(this.URL, actualUrl);
 	}
 
+	@Test
+	void emailAlreadyRegistered() {
+		//when
+		this.registerPage.fillOutForm();
+
+		//then
+		String expected = "×\nError: E-Mail Address is already registered!";
+		String actual = this.registerPage.getAlertError();
+		Assertions.assertEquals(expected, actual);
+
+		String actualUrl = this.registerPage.getCurrentUrl();
+		Assertions.assertEquals(this.CREATE_URL, actualUrl);
+	}
 }

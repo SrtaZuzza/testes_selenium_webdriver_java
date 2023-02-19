@@ -14,10 +14,10 @@ class LoginTest {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		System.setProperty("webdriver.chrome.driver","drivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver","drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
-		driver.get("http://automationpractice.com/index.php?controller=authentication&back=my-account");
+		driver.get("https://automationteststore.com/index.php?rt=account/login");
 	}
 
 	@AfterEach
@@ -27,19 +27,19 @@ class LoginTest {
 
 	@Test
 	void test() {
-		WebElement emailAddressElement = driver.findElement(By.id("email"));
-		emailAddressElement.sendKeys("camilajavadev123@gmail.com");
+		WebElement emailAddressElement = driver.findElement(By.name("loginname"));
+		emailAddressElement.sendKeys("Camila");
 		
-		WebElement passwordElement = driver.findElement(By.name("passwd"));
-		passwordElement.sendKeys("123456@Ca");
+		WebElement passwordElement = driver.findElement(By.name("password"));
+		passwordElement.sendKeys("1234@");
 		
-		WebElement submitBtnElement = driver.findElement(By.xpath("//*[@id=\"SubmitLogin\"]"));
+		WebElement submitBtnElement = driver.findElement(By.xpath("//*[@id=\"loginFrm\"]/fieldset/button"));
 		submitBtnElement.click();
 		
 		WebElement tagMyAccount = driver.findElement(By.tagName("h1"));
 		String textTagH1 = tagMyAccount.getText();
-		
-		Assertions.assertTrue(textTagH1.equals("MY ACCOUNT"));
+
+		Assertions.assertEquals("MY ACCOUNT Camila", textTagH1);
 	}
 
 }

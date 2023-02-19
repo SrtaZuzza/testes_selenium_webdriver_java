@@ -9,7 +9,7 @@ import dev.camila.automation.pratice.selenium.pages.LoginPage;
 
 class LoginPageTest {
 	private LoginPage loginPage;
-	private final String URL = "http://automationpractice.com/index.php?controller=authentication&back=my-account";
+	private final String URL = "https://automationteststore.com/index.php?rt=account/login";
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -28,8 +28,7 @@ class LoginPageTest {
 		this.loginPage.signin();
 		
 		//then
-		Assertions.assertTrue(this.loginPage.getMyAccountMessage().equals("MY ACCOUNT"));
-		Assertions.assertFalse(this.loginPage.getCurrentUrl().equals(this.URL));
+		Assertions.assertEquals("MY ACCOUNT Camila", this.loginPage.getMyAccountMessage());
+		Assertions.assertNotEquals(this.loginPage.getCurrentUrl(), this.URL);
 	}
-
 }

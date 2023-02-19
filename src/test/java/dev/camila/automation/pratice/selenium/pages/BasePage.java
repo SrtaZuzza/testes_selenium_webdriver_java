@@ -19,7 +19,7 @@ public abstract class BasePage {
 	private Select select;
 
 	public BasePage() {
-		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver");
+		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
 		driver = new ChromeDriver();
 		driver.manage().window().maximize();
 	}
@@ -79,7 +79,7 @@ public abstract class BasePage {
 	public String getTextByAttribute(By locator, String attributeName) {
 		return this.driver.findElement(locator).getAttribute(attributeName);
 	}
-	
+
 	public WebElement waitVisibilityOfElementLocated(By locator, Duration time) {
 		wait = new WebDriverWait(driver, time);
 		return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
