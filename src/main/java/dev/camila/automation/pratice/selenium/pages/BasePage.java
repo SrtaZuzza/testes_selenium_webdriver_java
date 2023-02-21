@@ -2,10 +2,7 @@ package dev.camila.automation.pratice.selenium.pages;
 
 import java.time.Duration;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,10 +10,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public abstract class BasePage {
-	private WebDriver driver;
+	private final WebDriver driver;
 	private Actions action;
 	private WebDriverWait wait;
-	private Select select;
 
 	public BasePage() {
 		System.setProperty("webdriver.chrome.driver", "drivers/chromedriver.exe");
@@ -75,7 +71,11 @@ public abstract class BasePage {
 		WebElement element = this.driver.findElement(locator);
 		action.moveToElement(element).click().build().perform();
 	}
-	
+	public void scrollPage(int value){
+//		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+		JavascriptExecutor Js1 = (JavascriptExecutor) this.driver;
+		Js1.executeScript(String.format("window.scrollBy(0,%d)", value));
+	}
 	public String getTextByAttribute(By locator, String attributeName) {
 		return this.driver.findElement(locator).getAttribute(attributeName);
 	}
@@ -95,7 +95,7 @@ public abstract class BasePage {
 	}
 	
 	public void selectByValue(By locator, String value) {
-		select = new Select(findElement(locator));
+		Select select = new Select(findElement(locator));
 		select.selectByValue(value);
 	}
 	

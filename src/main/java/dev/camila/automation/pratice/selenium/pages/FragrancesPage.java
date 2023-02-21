@@ -8,7 +8,7 @@ public class FragrancesPage extends BasePage {
 	private By submenuFragranceLocator = By.cssSelector("#categorymenu > nav > ul > li:nth-child(5) > div > ul:nth-child(1) > li:nth-child(2) > a");
 	private By titleCasualDressesPageLocator = By.tagName("h1");
 	
-	public void viewCasualDressesPage() {
+	public void viewWomenFragrancesPage() {
 		if(super.isDisplayed(menuFragranceLocator)) {
 			super.actionMoveToElementPerform(menuFragranceLocator);
 			super.actionMoveToElementClickPerform(submenuFragranceLocator);

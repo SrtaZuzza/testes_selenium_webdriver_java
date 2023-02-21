@@ -11,6 +11,7 @@ class RegisterPageTest {
 	private RegisterPage registerPage;
 	private final String URL = "https://automationteststore.com/index.php?rt=account/login";
 	private final String CREATE_URL = "https://automationteststore.com/index.php?rt=account/create";
+	private final String CHECKOUT_URL = "https://automationteststore.com/index.php?rt=checkout/confirm";
 
 	@BeforeEach
 	void setUp() throws Exception {
@@ -20,11 +21,11 @@ class RegisterPageTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-		this.registerPage.quitWebDriver();
+//		this.registerPage.quitWebDriver();
 	}
 
 	@Test
-	void test() {
+	void goToRegisterPage() {
 		//when
 		this.registerPage.clickContinueToRegister();
 		
@@ -35,7 +36,7 @@ class RegisterPageTest {
 	@Test
 	void registerNewUser() {
 		//when
-		this.registerPage.fillOutForm();
+		this.registerPage.fillOutForm(true);
 		
 		//then
 		String expected = "Your Account Has Been Created!".toUpperCase();
@@ -49,7 +50,7 @@ class RegisterPageTest {
 	@Test
 	void emailAlreadyRegistered() {
 		//when
-		this.registerPage.fillOutForm();
+		this.registerPage.fillOutForm(false);
 
 		//then
 		String expected = "×\nError: E-Mail Address is already registered!";
@@ -59,4 +60,17 @@ class RegisterPageTest {
 		String actualUrl = this.registerPage.getCurrentUrl();
 		Assertions.assertEquals(this.CREATE_URL, actualUrl);
 	}
+	@Test // O signin sempre usa dados válidos
+	void registerBeforeCheckout() {
+		this.registerPage.registerToBuy(false);
+		Assertions.assertEquals("CHECKOUT CONFIRMATION", this.registerPage.getTagMessage());
+		Assertions.assertEquals(this.CHECKOUT_URL, registerPage.getCurrentUrl());
+	}
+	@Test // O signin sempre usa dados válidos
+	void registerWhileCheckout() {
+		this.registerPage.registerToBuy(true);
+		Assertions.assertEquals("CHECKOUT CONFIRMATION", this.registerPage.getTagMessage());
+		Assertions.assertEquals(this.CHECKOUT_URL, registerPage.getCurrentUrl());
+	}
+
 }

@@ -25,7 +25,7 @@ class FragrancesPageTest {
 	@Test
 	void showFragrancesForWomen() {
 		//when
-		this.fragrancesPage.viewCasualDressesPage();
+		this.fragrancesPage.viewWomenFragrancesPage();
 		
 		//then
 		Assertions.assertEquals("Women".toUpperCase(), this.fragrancesPage.getTitlePage());

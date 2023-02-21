@@ -1,4 +1,4 @@
-package dev.camila.automation.pratice.selenium;
+package dev.camila.automation.pratice.selenium.old;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
