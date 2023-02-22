@@ -21,7 +21,7 @@ class RegisterPageTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-//		this.registerPage.quitWebDriver();
+		this.registerPage.quitWebDriver();
 	}
 
 	@Test
@@ -60,14 +60,16 @@ class RegisterPageTest {
 		String actualUrl = this.registerPage.getCurrentUrl();
 		Assertions.assertEquals(this.CREATE_URL, actualUrl);
 	}
-	@Test // O signin sempre usa dados válidos
+	@Test
 	void registerBeforeCheckout() {
 		this.registerPage.registerToBuy(false);
+		this.registerPage.buyStuff();
 		Assertions.assertEquals("CHECKOUT CONFIRMATION", this.registerPage.getTagMessage());
 		Assertions.assertEquals(this.CHECKOUT_URL, registerPage.getCurrentUrl());
 	}
-	@Test // O signin sempre usa dados válidos
+	@Test
 	void registerWhileCheckout() {
+		this.registerPage.buyStuff();
 		this.registerPage.registerToBuy(true);
 		Assertions.assertEquals("CHECKOUT CONFIRMATION", this.registerPage.getTagMessage());
 		Assertions.assertEquals(this.CHECKOUT_URL, registerPage.getCurrentUrl());

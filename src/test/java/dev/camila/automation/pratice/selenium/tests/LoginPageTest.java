@@ -21,13 +21,13 @@ class LoginPageTest {
 
 	@AfterEach
 	void tearDown() throws Exception {
-//		this.loginPage.quitWebDriver();
+		this.loginPage.quitWebDriver();
 	}
 
 	@Test
 	void loginUserWithCorrectEmailAndPassword() {
 		//when
-		this.loginPage.signin();
+		this.loginPage.signIn();
 		
 		//then
 		Assertions.assertEquals("MY ACCOUNT Camila", this.loginPage.getMyAccountMessage());
@@ -36,7 +36,7 @@ class LoginPageTest {
 	@Test
 	void LoginUserWithInvalidEmailAndPassword() {
 		//when
-		this.loginPage.signin("£¢¬");
+		this.loginPage.signIn("£¢¬", "£¢¬");
 
 		//then
 		String expected = "×\nError: Incorrect login or password provided.";
@@ -56,7 +56,7 @@ class LoginPageTest {
 	@Test
 	void loginBeforeCheckout() {
 		//when
-		this.loginPage.signin();
+		this.loginPage.signIn();
 
 		//then
 

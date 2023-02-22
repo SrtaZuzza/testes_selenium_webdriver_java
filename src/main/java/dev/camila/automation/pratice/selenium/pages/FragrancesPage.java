@@ -6,7 +6,7 @@ public class FragrancesPage extends BasePage {
 	//Locators
 	private By menuFragranceLocator = By.xpath("//*[@id=\"categorymenu\"]/nav/ul/li[5]/a");
 	private By submenuFragranceLocator = By.cssSelector("#categorymenu > nav > ul > li:nth-child(5) > div > ul:nth-child(1) > li:nth-child(2) > a");
-	private By titleCasualDressesPageLocator = By.tagName("h1");
+	private By titleFragrancesPageLocator = By.tagName("h1");
 	
 	public void viewWomenFragrancesPage() {
 		if(super.isDisplayed(menuFragranceLocator)) {
@@ -18,7 +18,7 @@ public class FragrancesPage extends BasePage {
 	}
 	
 	public String getTitlePage() {
-		return super.getText(titleCasualDressesPageLocator);
+		return super.getText(titleFragrancesPageLocator);
 	}
 
 }

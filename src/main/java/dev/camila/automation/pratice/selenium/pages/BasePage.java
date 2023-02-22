@@ -55,7 +55,10 @@ public abstract class BasePage {
 	public String getText(By locator) {
 		return this.driver.findElement(locator).getText();
 	}
-	
+	public String getAttribute(By locator) {
+		return this.driver.findElement(locator).getAttribute("value");
+	}
+
 	public void actionMoveToElementPerform(By locator) {
 		if (this.action == null) {
 			this.action = new Actions(this.driver);
@@ -71,10 +74,13 @@ public abstract class BasePage {
 		WebElement element = this.driver.findElement(locator);
 		action.moveToElement(element).click().build().perform();
 	}
-	public void scrollPage(int value){
+//    public void setWait(int time) {
+//        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(time));
+//    }
+	public void scrollPage(String direction, int value){
 //		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 		JavascriptExecutor Js1 = (JavascriptExecutor) this.driver;
-		Js1.executeScript(String.format("window.scrollBy(0,%d)", value));
+		Js1.executeScript(String.format(direction, value));
 	}
 	public String getTextByAttribute(By locator, String attributeName) {
 		return this.driver.findElement(locator).getAttribute(attributeName);

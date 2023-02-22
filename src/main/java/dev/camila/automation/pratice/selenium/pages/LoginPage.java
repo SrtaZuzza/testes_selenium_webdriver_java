@@ -12,7 +12,7 @@ public class LoginPage extends BasePage {
 	private By alertErrorLocator = By.cssSelector("#maincontainer > div > div > div > div.alert.alert-error.alert-danger");
 	private By notUserOptionLocator = By.xpath("//*[@id=\"customer_menu_top\"]/li/ul/li[10]/a");
 	
-	public void signin() {
+	public void signIn() {
 		super.waitVisibilityOfElementLocated(userMenuLocator);
 		super.actionMoveToElementClickPerform(userMenuLocator);
 		if(super.isDisplayed(loginNameLocator)) {
@@ -23,19 +23,19 @@ public class LoginPage extends BasePage {
 			System.out.println("email textbox was not present");
 		}
 	}
-	public void signin(String string) {
+	public void signIn(String username, String password) {
 		super.waitVisibilityOfElementLocated(userMenuLocator);
 		super.actionMoveToElementClickPerform(userMenuLocator);
 		if(super.isDisplayed(loginNameLocator)) {
-			super.type(string, loginNameLocator);
-			super.type(string, passwordLocator);
+			super.type(username, loginNameLocator);
+			super.type(password, passwordLocator);
 			super.click(submitBtnLocator);
 		} else {
 			System.out.println("email textbox was not present");
 		}
 	}
 	public void loginToLogout(){
-		this.signin();
+		this.signIn();
 		super.waitVisibilityOfElementLocated(tagMyAccountLocator);
 		if(super.isDisplayed(userMenuLocator)) {
 			super.actionMoveToElementPerform(userMenuLocator);
